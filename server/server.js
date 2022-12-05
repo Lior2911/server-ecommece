@@ -33,3 +33,10 @@ app.get("/", (request, response) => {
 app.listen(port, () => {
   console.log("suck yuh madda");
 });
+
+if (process.env.NODE_ENV === 'production') {
+  app.use(express.static(path.join(__dirname, '../client/build')));
+  app.get('*', (req, res)=>{
+      res.sendFile(path.join(__dirname, '../client/build', 'index.html'));
+  });
+}
